@@ -1,0 +1,49 @@
+id: aea32057-6c66-4c1e-ba97-ab0a14dc42b3
+name: kate5
+apptype: api
+language: python
+toolchain:
+  id: 58e2fba2b5667d001e4a3346
+  name: my-python-tools-2
+opinion:
+  id: 58e2fb9fe2a801000e8cb43e
+  name: Qubeship Out of the Box Opinion
+endpoint:
+  id: 
+  name: Default Endpoint
+  type: 
+pipeline: build_bake_test_deployment:v0.1
+security:
+  keys_loc: "conf/"
+notification:
+  type: slack
+  domain: 
+  channel: qubeship
+build:
+  image:
+    name: python:3-onbuild
+    onbuild:
+      - pip install tox wheel && pip list && tox && python setup.py bdist_wheel
+  publish_artifact: dist/
+  lint: true
+bake:
+  strategy: docker
+  script: Dockerfile
+  repositories:
+    - name: google
+      prefix: gcr.io/qubeship-partners
+      type: gcr
+test:
+  skip: true
+  functional:
+    provider: qubeship-sg
+deployment:
+  skip: true
+  continuous_deployment: true
+  service_name: kate5
+  environments:
+    prod:
+      - type: qubeship_managed
+        id: 
+        template_id: qube_external_app_v1
+        srcRepo: google
