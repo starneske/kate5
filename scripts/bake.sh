@@ -7,6 +7,6 @@ cd $DIR/..
 if [ -e .env ]; then
 	source .env
 fi
-echo $QUBE_SERVICE_DOCKER_IMAGE_LOCAL
+echo $KATE5_DOCKER_IMAGE_LOCAL
 
-docker build -t $QUBE_SERVICE_DOCKER_IMAGE_LOCAL:$QUBE_SERVICE_IMAGE_VERSION . 
+docker build -t $KATE5_DOCKER_IMAGE_LOCAL:$KATE5_IMAGE_VERSION . 

@@ -1,8 +1,8 @@
 FROM python:3.5
-ADD dist/qube_placeholder*.whl .
+ADD dist/kate5*.whl .
 ADD requirements.txt .
 RUN pip install -r requirements.txt
-RUN pip install qube_placeholder*.whl 
+RUN pip install kate5*.whl 
 RUN pip install uwsgi
 
 # install Consul CLI tool
